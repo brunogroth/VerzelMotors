@@ -5,10 +5,6 @@ export const Vehicle = model('Vehicle', new Schema({
     type: String,
     required: true,
   },
-  make: {
-    type: String,
-    required: true,
-  },
   model: {
     type: String,
     required: true,
@@ -19,7 +15,7 @@ export const Vehicle = model('Vehicle', new Schema({
     type:Date,
     default:Date.now,
   },
-  Make: {
+  makeId: {
     type:Schema.Types.ObjectId,
     required: true,
     ref:'Make',
