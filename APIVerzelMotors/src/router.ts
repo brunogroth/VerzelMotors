@@ -9,6 +9,8 @@ import { createMake } from './app/useCases/makes/createMake';
 import { listMakes } from './app/useCases/makes/listMakes';
 import { createVehicle } from './app/useCases/vehicles/createVehicle';
 import { listVehicles } from './app/useCases/vehicles/listVehicles';
+import { editVehicle } from './app/useCases/vehicles/editVehicle';
+import { deleteVehicle } from './app/useCases/vehicles/deleteVehicle';
 
 export const router = Router();
 
@@ -23,6 +25,7 @@ const upload = multer({
     callback(null, `${Date.now()}-${file.originalname}`);
   },
 })});
+
 // List Makes
 router.get('/makes', listMakes);
 
@@ -36,14 +39,10 @@ router.get('/makes/:makeId/vehicles', listVehicles);
 router.post('/vehicles', upload.single('imagePath'), createVehicle);
 
 // List Vehicles
-router.get('/vehicles', listVehicles);
+router.get('/vehicles', upload.single('imagePath'), listVehicles);
 
 // Edit Vehicle
-router.patch('/vehicles/:vehicleId', (req, res) => {
-  res.send('OK');
-});
+router.patch('/vehicles/:vehicleId',upload.single('imagePath'), editVehicle);
 
 // Delete Vehicle
-router.delete('/vehicles/:vehicleId', (req, res) => {
-  res.send('OK');
-});
+router.delete('/vehicles/:vehicleId', deleteVehicle);
