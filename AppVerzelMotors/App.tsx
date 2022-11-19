@@ -2,6 +2,9 @@ import { useFonts } from 'expo-font';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 
+//Componentes
+import { Main } from './src/components/Main/main';
+
 // Import do componente Text personalizado com preset
 import { Text } from './src/components/Text';
 
@@ -19,19 +22,6 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text  size={18} opacity={0.5} color="black">Bem vindo ao</Text>
-      <Text  size={24} weight="700" color="black">AppVerzelMotors.</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Main/>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
