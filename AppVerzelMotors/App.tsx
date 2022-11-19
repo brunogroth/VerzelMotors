@@ -1,0 +1,37 @@
+import { useFonts } from 'expo-font';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, View } from 'react-native';
+
+// Import do componente Text personalizado com preset
+import { Text } from './src/components/Text';
+
+export default function App() {
+
+
+  const [isFontsLoaded] = useFonts({
+    'GeneralSans-400': require('./src/assets/fonts/GeneralSans-Regular.otf'),
+    'GeneralSans-600': require('./src/assets/fonts/GeneralSans-Semibold.otf'),
+    'GeneralSans-700': require('./src/assets/fonts/GeneralSans-Bold.otf'),
+  });
+
+  if(!isFontsLoaded){
+    return null;
+  }
+
+  return (
+    <View style={styles.container}>
+      <Text  size={18} opacity={0.5} color="black">Bem vindo ao</Text>
+      <Text  size={24} weight="700" color="black">AppVerzelMotors.</Text>
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
