@@ -38,5 +38,15 @@ export const vehicles = [
 		"makeId": "6376e34242481e16ef08e236",
 		"createdAt": "2022-11-19T17:26:46.335Z",
 		"__v": 0
-	}
+	},
+	{
+		"_id": "asdsadad",
+		"name": "Fiat Pulse",
+		"model": "Ultra 1.6 Turbo Aut",
+		"price": 98000,
+    "imagePath": "1668878449290-Fiat-Pulse-1.jpg",
+		"makeId": "6375dca9b889b16d4113c609",
+		"createdAt": "2022-11-19T17:20:49.327Z",
+		"__v": 0
+	},
 ];
