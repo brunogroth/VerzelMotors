@@ -8,6 +8,7 @@ import { Makes } from '../Makes/makes';
 import { Catalog } from '../Catalog/catalog';
 
 import { Container, Footer, FooterContainer, MakesContainer, VehiclesContainer } from './styles';
+import { Button } from '../Button/button';
 
 export function Main() {
   return (
@@ -22,7 +23,9 @@ export function Main() {
       </VehiclesContainer>
     </Container>
     <Footer>
-      <FooterContainer/>
+      <FooterContainer>
+        {/* <Button onPress={()=> alert('ok')}>Botão</Button> */}
+      </FooterContainer>
     </Footer>
 
   </>
