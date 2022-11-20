@@ -11,6 +11,7 @@ import { createVehicle } from './app/useCases/vehicles/createVehicle';
 import { listVehicles } from './app/useCases/vehicles/listVehicles';
 import { editVehicle } from './app/useCases/vehicles/editVehicle';
 import { deleteVehicle } from './app/useCases/vehicles/deleteVehicle';
+import { listVehiclesByMake } from './app/useCases/makes/listVehiclesByMake';
 
 export const router = Router();
 
@@ -33,7 +34,7 @@ router.get('/makes', listMakes);
 router.post('/makes', upload.single('imagePath'), createMake);
 
 //Get Vehicles by Maker
-router.get('/makes/:makeId/vehicles', listVehicles);
+router.get('/makes/:makeId/vehicles', listVehiclesByMake);
 
 // Create Vehicle
 router.post('/vehicles', upload.single('imagePath'), createVehicle);
