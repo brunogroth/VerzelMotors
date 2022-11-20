@@ -8,16 +8,17 @@ import { Make } from "../../types/Make";
 
 interface makesProps {
   makes:Make[],
+  onSelectMake: (makeId: string) => Promise<void>;
 }
-export function Makes({makes}:makesProps){
+export function Makes({makes, onSelectMake}:makesProps){
 
   const [selectedMake, setSeletedMake] = useState("");
 
     function handleSelectMake(makeId: string){
       // If selectedMake = '', any make has been selected so all of them gonna be shown.
       const make = selectedMake == makeId ? '' : makeId;
-    setSeletedMake(make);
-
+    setSeletedMake(make); // Somente componente visual
+    onSelectMake(make); // Requisição da API
     }
   return (
     <FlatList

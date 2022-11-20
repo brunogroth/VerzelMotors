@@ -26,8 +26,16 @@ export function Main() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [isLogged, setIsLogged] = useState(false);
 
-  // Recebimento de dados da API
+  async function handleSelectMakes(makeId: string){
+    const route = !makeId ? '/vehicles' : `/makes/${makeId}/vehicles`;
 
+    const { data } = await api.get(route);
+
+    setVehicles(data);
+
+  }
+
+  // Recebimento de dados da API
   useEffect(() => {
     Promise.all([
       api.get('/makes'),
@@ -36,7 +44,6 @@ export function Main() {
       setMakes(makesResponse.data);
       setVehicles(vehiclesResponse.data);
       setIsLoading(false);
-      console.log('ok');
     });
   }, []);
 
@@ -55,7 +62,10 @@ export function Main() {
         ) : (
           <>
             <MakesContainer>
-              <Makes makes={makes} />
+              <Makes
+              makes={makes}
+              onSelectMake={handleSelectMakes}
+              />
             </MakesContainer>
 
             {vehicles.length > 0 ? (

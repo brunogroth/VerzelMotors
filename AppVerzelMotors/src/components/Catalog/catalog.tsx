@@ -21,7 +21,6 @@ export function Catalog({vehicles}: CatalogProps) {
   function handleOpenModal(vehicle: Vehicle){
     setIsModalVisible(true);
     setSelectedVehicle(vehicle);
-    console.log(vehicle);
   }
   return (
     <>
