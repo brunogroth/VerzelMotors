@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Modal, TextInput, Linking } from "react-native";
+import { SvgFromUri } from "react-native-svg";
 import SvgUri from "react-native-svg-uri";
 import { Button } from "../Button/button";
 import { CheckCircle } from "../Icons/CheckCircle";
@@ -12,15 +13,18 @@ import { Container, Content, LoginFooter, LoginForm } from "./styles";
 interface LoginProps {
   visible: boolean;
   onClose: () => void;
+  isLogged: () => void;
 }
 
-export function Login({ visible, onClose }: LoginProps) {
+export function Login({ visible, onClose, isLogged }: LoginProps) {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   function handleLogin() {
     if (login && password) {
       alert('Bem vindo ao VerzelMotors, ' + login + '! Login efetuado.')
       onClose();
+      isLogged();
+
     } else {
       alert('Por gentileza, informe Login e Senha para prosseguir.');
     }
@@ -36,7 +40,7 @@ export function Login({ visible, onClose }: LoginProps) {
         <CloseButton onPress={onClose}><Close /></CloseButton>
 
         <Content>
-          <SvgUri source={{ uri: 'https://verzel.com.br/static/media/icon_verzel_logo.b730ce46.svg' }} />
+          <SvgFromUri uri='https://verzel.com.br/static/media/icon_verzel_logo.b730ce46.svg'/>
           <Text color="white" weight="700" size={21} style={{ marginVertical: 25, }}>Login do usuário</Text>
           <LoginForm>
             <Text style={{ marginTop: 30 }}>Login</Text>
@@ -45,7 +49,7 @@ export function Login({ visible, onClose }: LoginProps) {
             <TextInput secureTextEntry={true} placeholder="Informe sua senha aqui" onChangeText={setPassword} style={{ borderBottomWidth: 1, borderBottomColor: '#25cbd3', marginVertical: 15 }}></TextInput>
             <Text size={12} onPress={() => Linking.openURL('https://verzel.com.br')}>Não possui login?</Text>
             <LoginFooter>
-            <Button onPress={handleLogin}>Login</Button>
+            <Button onPress={handleLogin} >Login</Button>
           </LoginFooter>
           </LoginForm>
 

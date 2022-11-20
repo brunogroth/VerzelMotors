@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { FlatList, Linking } from "react-native";
-import { vehicles } from "../../mocks/vehicles";
+
 import { Vehicle } from "../../types/Vehicle";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { Button } from "../Button/button";
@@ -10,7 +10,10 @@ import { VehicleModal } from "../VehicleModal/modal";
 
 import { VehicleContainer, Image, VehicleDetails, Separator } from './styles';
 
-export function Catalog() {
+interface CatalogProps {
+  vehicles: Vehicle[];
+}
+export function Catalog({vehicles}: CatalogProps) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState<null | Vehicle>(null);
   const ownerNumber = 5541999964650;

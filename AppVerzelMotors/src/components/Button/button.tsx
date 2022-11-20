@@ -7,11 +7,10 @@ interface ButtonProps {
   onPress: () => void;
   disabled?: boolean;
 }
-
 export function Button({children, onPress, disabled}: ButtonProps){
   return (
     <Container onPress={onPress} disabled={disabled}>
-      <Text color="white" weight="600">{children}</Text>
+      <Text color="white" weight="600" >{children}</Text>
     </Container>
   )
 }

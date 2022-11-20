@@ -2,12 +2,14 @@ import React from "react";
 import { FlatList } from "react-native";
 import { useState } from "react";
 
-
-import { makes } from "../../mocks/makes";
 import { Text } from "../Text";
-import { Make } from "./styles";
+import { MakeContainer } from "./styles";
+import { Make } from "../../types/Make";
 
-export function Makes(){
+interface makesProps {
+  makes:Make[],
+}
+export function Makes({makes}:makesProps){
 
   const [selectedMake, setSeletedMake] = useState("");
 
@@ -28,9 +30,9 @@ export function Makes(){
       const isSelected = selectedMake === make._id || selectedMake === '';
       return (
 
-      <Make onPress={() => {handleSelectMake(make._id)}}>
+      <MakeContainer onPress={() => {handleSelectMake(make._id)}}>
         <Text opacity={isSelected ? 1 : 0.2} color="white">{make.name}</Text>
-      </Make>
+      </MakeContainer>
     )}
 
   }/>

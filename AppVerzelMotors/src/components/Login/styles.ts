@@ -10,7 +10,6 @@ export const Content = styled.View`
   border: white;
   background: #21103d;
   border-radius: 24px;
-  justify-content: center;
   align-items: center;
   flex: 1;
   padding-bottom: 15px;
@@ -29,4 +28,5 @@ export const LoginForm = styled.View`
 
 export const LoginFooter = styled.View`
   padding: 1px 24px;
+  marginTop: 10px;
 `;

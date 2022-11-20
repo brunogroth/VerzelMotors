@@ -1,50 +1,83 @@
 import React, { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Text } from "../Text";
 
 // Components
 import { Header } from "../Header/header";
 import { Makes } from '../Makes/makes';
 import { Catalog } from '../Catalog/catalog';
-
-import { CenteredContainer, Container, Footer, FooterContainer, MakesContainer, VehiclesContainer } from './styles';
 import { Button } from '../Button/button';
 import { Login } from '../Login/login';
-import { ActivityIndicator } from 'react-native';
+import { Text } from '../Text';
 
+import { CenteredContainer, Container, Footer, FooterContainer, MakesContainer, VehiclesContainer } from './styles';
+import { ActivityIndicator } from 'react-native';
+import { Vehicle } from '../../types/Vehicle';
+import { Empty } from '../Icons/Empty';
+import { useEffect } from 'react';
+import { Make } from '../../types/Make';
+
+// Import Axios API
+import { api } from '../../utils/api';
 
 export function Main() {
-  const [LoginVisible, setLoginVisible] = useState(false);
-  const [isLoading] = useState(false);
+
+  const [LoginModalVisible, setLoginModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [makes, setMakes] = useState<Make[]>([]);
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+  const [isLogged, setIsLogged] = useState(false);
+
+  // Recebimento de dados da API
+
+  useEffect(() => {
+    Promise.all([
+      api.get('/makes'),
+      api.get('/vehicles')
+    ]).then(([makesResponse, vehiclesResponse]) => {
+      setMakes(makesResponse.data);
+      setVehicles(vehiclesResponse.data);
+      setIsLoading(false);
+      console.log('ok');
+    });
+  }, []);
 
   return (
     <>
-
-      <Login visible={LoginVisible} onClose={() => setLoginVisible(false)} />
+      <Login visible={LoginModalVisible} onClose={() => setLoginModalVisible(false)} isLogged={() => setIsLogged(true)} />
       <Container>
-        <Header />
-        {!isLoading && (
+        <Header isLogged={isLogged} />
+        {isLoading ? (
+          <>
+            <CenteredContainer>
+              <ActivityIndicator color={'#21103d'} size={'large'} />
+            </CenteredContainer>
+          </>
+
+        ) : (
           <>
             <MakesContainer>
-              <Makes />
+              <Makes makes={makes} />
             </MakesContainer>
-            <VehiclesContainer>
-              <Catalog />
-            </VehiclesContainer>
+
+            {vehicles.length > 0 ? (
+              <VehiclesContainer>
+                <Catalog vehicles={vehicles} />
+              </VehiclesContainer>
+            ) : (
+              <CenteredContainer>
+                <Empty />
+                <Text>Nenhum veículo encontrado!</Text>
+              </CenteredContainer>
+            )}
           </>
         )}
-        {isLoading && (
-          <CenteredContainer>
-            <ActivityIndicator color={'#21103d'} size={'large'}/>
-          </CenteredContainer>
-        )}
       </Container>
-      <Footer>
-        <FooterContainer>
-          <Button onPress={() => { setLoginVisible(true) }} >Login</Button>
-        </FooterContainer>
-      </Footer>
-
+      {!isLogged && (
+        <Footer>
+          <FooterContainer>
+            <Button onPress={() => { setLoginModalVisible(true) }} >Login</Button>
+          </FooterContainer>
+        </Footer>
+      )}
     </>
   )
 }
